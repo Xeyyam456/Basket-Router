@@ -10,6 +10,7 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const isProductsPage = pathname === '/products'
+  const isHomePage = pathname === '/'
   const [searchVal, setSearchVal] = useState('')
   const [sortVal, setSortVal] = useState('')
 
@@ -35,7 +36,7 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
   }
 
   return (
-    <header className="header">
+    <header className={`header${isHomePage ? ' header--home' : ''}`}>
       {/* Sol — Sort + Reset (yalnız /products səhifəsində) */}
       <div className="header__left">
         {isProductsPage && (
@@ -56,15 +57,17 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
         )}
       </div>
 
-      {/* Mərkəz — Axtarış */}
-      <div className="header__search-wrap">
-        <Input
-          placeholder="Search products..."
-          value={searchVal}
-          onChange={handleSearch}
-          icon={<FiSearch size={16} />}
-        />
-      </div>
+      {/* Mərkəz — Axtarış (Home-da gizli) */}
+      {!isHomePage && (
+        <div className="header__search-wrap">
+          <Input
+            placeholder="Search products..."
+            value={searchVal}
+            onChange={handleSearch}
+            icon={<FiSearch size={16} />}
+          />
+        </div>
+      )}
 
       {/* Sağ — Nav + İkonlar */}
       <div className="header__right">

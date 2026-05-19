@@ -66,6 +66,25 @@
   max-width: 420px;
 }
 
+/* Home səhifəsində nav mərkəzdə, ikonlar sağda */
+.header--home .header__left {
+  display: none;
+}
+
+.header--home .header__right {
+  flex: 1;
+  justify-content: space-between;
+}
+
+.header--home .header__nav {
+  flex: 1;
+  justify-content: center;
+}
+
+.header--home .header__actions {
+  margin-left: auto;
+}
+
 /* Sağ */
 .header__right {
   display: flex;
