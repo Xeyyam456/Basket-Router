@@ -1,2 +1,2 @@
-// Əsl implementasiya → @store/FavoritesContext
-export { useFavorites as default } from '@store/FavoritesContext'
+// Əsl implementasiya → @store/favoritesStore
+export { useFavorites as default } from '@store/favoritesStore'

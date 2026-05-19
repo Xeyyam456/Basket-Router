@@ -3,8 +3,8 @@ import { FiShoppingCart, FiHeart, FiSearch } from 'react-icons/fi'
 import Button from '@shared/components/Button/Button'
 import Input from '@shared/components/Input/Input'
 import useHeaderSearch from '@hooks/useHeaderSearch'
-import { useFavorites } from '@store/FavoritesContext'
-import { useBasket } from '@store/BasketContext'
+import { useFavorites } from '@store/favoritesStore'
+import { useBasket } from '@store/basketStore'
 import './Header.css'
 
 function Header() {

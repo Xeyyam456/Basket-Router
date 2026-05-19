@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import { FiShoppingCart, FiHeart, FiStar, FiArrowLeft, FiTag, FiPackage } from 'react-icons/fi'
 import useTitle from '@hooks/useTitle'
-import { useBasket } from '@store/BasketContext'
-import { useFavorites } from '@store/FavoritesContext'
+import { useBasket } from '@store/basketStore'
+import { useFavorites } from '@store/favoritesStore'
 import { productService } from '@services/productService'
-import { notifyError } from '@utils/toastHandlers'
 import LoadingBar from '@shared/components/LoadingBar/LoadingBar'
 import Button from '@shared/components/Button/Button'
 import './ProductDetail.css'
@@ -13,26 +13,20 @@ import './ProductDetail.css'
 function ProductDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [product, setProduct] = useState(null)
-  const [loading, setLoading] = useState(true)
   const [activeImg, setActiveImg] = useState(0)
 
   const { basket, toggle: toggleBasket } = useBasket()
   const { favorites, toggle: toggleFavorite } = useFavorites()
 
+  const { data: product, isLoading } = useQuery({
+    queryKey: ['product', id],
+    queryFn: () => productService.getById(id),
+    onSuccess: () => setActiveImg(0),
+  })
+
   useTitle(product ? product.title : `Product ${id}`)
 
-  useEffect(() => {
-    setLoading(true)
-    setActiveImg(0)
-    productService
-      .getById(id)
-      .then(data => setProduct(data))
-      .catch(() => notifyError('Məhsul tapılmadı'))
-      .finally(() => setLoading(false))
-  }, [id])
-
-  if (loading) return <LoadingBar />
+  if (isLoading) return <LoadingBar />
 
   if (!product) return (
     <div className="product-detail-page">
