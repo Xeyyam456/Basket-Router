@@ -7,9 +7,7 @@ function Home() {
     <div className="home">
       <Header />
       <main className="home__main">
-        <div className="container">
-          <Carousel />
-        </div>
+        <Carousel />
       </main>
     </div>
   )

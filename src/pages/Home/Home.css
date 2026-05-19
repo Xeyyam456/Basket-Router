@@ -1,15 +1,10 @@
 .home {
+  position: relative;
   min-height: 100vh;
   background: #16213e;
   color: #fff;
 }
 
 .home__main {
-  padding: 40px 0;
-}
-
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 20px;
+  width: 100%;
 }
