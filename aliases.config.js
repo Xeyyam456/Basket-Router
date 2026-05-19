@@ -12,6 +12,7 @@ const aliases = {
   '@store': 'src/store',
   '@utils': 'src/utils',
   '@features': 'src/features',
+  '@services': 'src/services',
 }
 
 export default aliases

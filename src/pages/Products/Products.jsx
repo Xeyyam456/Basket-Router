@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import useTitle from '@hooks/useTitle'
-import { productService } from '@features/productService'
+import { productService } from '@services/productService'
 import ProductGrid from './ProductGrid'
 import './Products.css'
 
