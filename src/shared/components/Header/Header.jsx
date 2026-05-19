@@ -1,23 +1,28 @@
 import { useState, useEffect } from 'react'
-import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { NavLink, useNavigate, useLocation, useSearchParams } from 'react-router-dom'
 import { FiShoppingCart, FiHeart, FiSearch } from 'react-icons/fi'
 import Button from '@shared/components/Button/Button'
 import Input from '@shared/components/Input/Input'
 import useDebounce from '@hooks/useDebounce'
 import './Header.css'
 
-function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
+function Header({ cartCount = 0, wishCount = 0 }) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams()
   const isProductsPage = pathname === '/products'
   const isHomePage = pathname === '/'
-  const [searchVal, setSearchVal] = useState('')
-  const [sortVal, setSortVal] = useState('')
 
+  const [searchVal, setSearchVal] = useState(searchParams.get('q') || '')
+  const [sortVal, setSortVal] = useState(searchParams.get('sort') || '')
   const debouncedSearch = useDebounce(searchVal)
 
   useEffect(() => {
-    onSearch?.(debouncedSearch)
+    setSearchParams(prev => {
+      if (debouncedSearch) prev.set('q', debouncedSearch)
+      else prev.delete('q')
+      return new URLSearchParams(prev)
+    })
   }, [debouncedSearch])
 
   function handleSearch(e) {
@@ -25,19 +30,23 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
   }
 
   function handleSort(e) {
-    setSortVal(e.target.value)
-    onSort?.(e.target.value)
+    const val = e.target.value
+    setSortVal(val)
+    setSearchParams(prev => {
+      if (val) prev.set('sort', val)
+      else prev.delete('sort')
+      return new URLSearchParams(prev)
+    })
   }
 
   function handleReset() {
     setSearchVal('')
     setSortVal('')
-    onReset?.()
+    setSearchParams({})
   }
 
   return (
     <header className={`header${isHomePage ? ' header--home' : ''}`}>
-      {/* Sol — Sort + Reset (yalnız /products səhifəsində) */}
       <div className="header__left">
         {isProductsPage && (
           <>
@@ -57,7 +66,6 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
         )}
       </div>
 
-      {/* Mərkəz — Axtarış (Home-da gizli) */}
       {!isHomePage && (
         <div className="header__search-wrap">
           <Input
@@ -69,7 +77,6 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
         </div>
       )}
 
-      {/* Sağ — Nav + İkonlar */}
       <div className="header__right">
         <nav className="header__nav">
           <NavLink
@@ -93,15 +100,11 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
         <div className="header__actions">
           <button className="header__icon-btn" aria-label="Cart" onClick={() => navigate('/basket')}>
             <FiShoppingCart size={22} />
-            {cartCount > 0 && (
-              <span className="header__badge">{cartCount}</span>
-            )}
+            {cartCount > 0 && <span className="header__badge">{cartCount}</span>}
           </button>
           <button className="header__icon-btn" aria-label="Wishlist" onClick={() => navigate('/favorites')}>
             <FiHeart size={22} />
-            {wishCount > 0 && (
-              <span className="header__badge">{wishCount}</span>
-            )}
+            {wishCount > 0 && <span className="header__badge">{wishCount}</span>}
           </button>
         </div>
       </div>

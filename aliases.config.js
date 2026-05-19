@@ -11,7 +11,6 @@ const aliases = {
   '@hooks': 'src/shared/hooks',
   '@store': 'src/store',
   '@utils': 'src/utils',
-  '@features': 'src/features',
   '@services': 'src/services',
 }
 
