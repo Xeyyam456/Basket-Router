@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react'
+import { notifySuccess, notifyInfo, notifyError } from '@utils/toastHandlers'
 
 const STORAGE_KEY = 'favorites'
 
@@ -22,10 +23,14 @@ export function FavoritesProvider({ children }) {
 
   function toggle(product) {
     setFavorites(prev => {
-      const next = prev.some(p => p.id === product.id)
+      const exists = prev.some(p => p.id === product.id)
+      const next = exists
         ? prev.filter(p => p.id !== product.id)
         : [...prev, product]
       saveToStorage(next)
+      exists
+        ? notifyInfo(`"${product.title}" favoritlərdən çıxarıldı`)
+        : notifySuccess(`"${product.title}" favoritə əlavə edildi`)
       return next
     })
   }
@@ -33,6 +38,7 @@ export function FavoritesProvider({ children }) {
   function clearFavorites() {
     setFavorites([])
     saveToStorage([])
+    notifyError('Favorites təmizləndi')
   }
 
   return (

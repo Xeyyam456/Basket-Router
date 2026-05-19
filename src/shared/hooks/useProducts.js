@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { productService } from '@services/productService'
+import { notifyError } from '@utils/toastHandlers'
 
 function useProducts() {
   const [products, setProducts] = useState([])
@@ -10,7 +11,10 @@ function useProducts() {
     productService
       .getAll()
       .then(data => setProducts(data.products))
-      .catch(err => setError(err.message))
+      .catch(err => {
+        setError(err.message)
+        notifyError('Məhsullar yüklənilə bilmədi')
+      })
       .finally(() => setLoading(false))
   }, [])
 

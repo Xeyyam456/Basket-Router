@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react'
+import { notifySuccess, notifyInfo, notifyError } from '@utils/toastHandlers'
 
 const STORAGE_KEY = 'basket'
 
@@ -22,10 +23,14 @@ export function BasketProvider({ children }) {
 
   function toggle(product) {
     setBasket(prev => {
-      const next = prev.some(p => p.id === product.id)
+      const exists = prev.some(p => p.id === product.id)
+      const next = exists
         ? prev.filter(p => p.id !== product.id)
         : [...prev, { ...product, quantity: 1 }]
       saveToStorage(next)
+      exists
+        ? notifyInfo(`"${product.title}" basketdən çıxarıldı`)
+        : notifySuccess(`"${product.title}" basketə əlavə edildi`)
       return next
     })
   }
@@ -49,6 +54,7 @@ export function BasketProvider({ children }) {
   function clearBasket() {
     setBasket([])
     saveToStorage([])
+    notifyError('Basket təmizləndi')
   }
 
   function isInBasket(productId) {
