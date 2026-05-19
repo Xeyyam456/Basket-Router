@@ -3,6 +3,7 @@ import useProducts from '@hooks/useProducts'
 import useFavorites from '@hooks/useFavorites'
 import useSearchFilter from '@hooks/useSearchFilter'
 import { useBasket } from '@store/BasketContext'
+import LoadingBar from '@shared/components/LoadingBar/LoadingBar'
 import ProductGrid from './ProductGrid'
 import './Products.css'
 
@@ -18,7 +19,7 @@ function Products() {
     toggleBasket(product)
   }
 
-  if (loading) return <div className="products-page"><p className="products-page__msg">Loading...</p></div>
+  if (loading) return <LoadingBar />
   if (error)   return <div className="products-page"><p className="products-page__msg products-page__msg--error">{error}</p></div>
 
   return (
