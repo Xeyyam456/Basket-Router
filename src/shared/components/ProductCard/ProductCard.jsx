@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import { FiShoppingCart, FiHeart } from 'react-icons/fi'
+import { FiShoppingCart, FiHeart, FiTrash2 } from 'react-icons/fi'
 import Button from '@shared/components/Button/Button'
 import './ProductCard.css'
 
-function ProductCard({ product, onAddToCart, onToggleFavorite, isFavorite = false }) {
+function ProductCard({ product, onAddToCart, onToggleFavorite, onRemove, onIncrement, onDecrement, isFavorite = false, isInBasket = false, quantity }) {
   const navigate = useNavigate()
   const { id, title, description, price, rating, category, thumbnail } = product
 
@@ -20,19 +20,26 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, isFavorite = fals
 
         <div className="product-card__footer">
           <div className="product-card__info">
-            <span className="product-card__price">${price}</span>
+            <span className="product-card__price">
+              ${quantity !== undefined ? (price * quantity).toFixed(2) : price}
+            </span>
+            {quantity !== undefined && quantity > 1 && (
+              <span className="product-card__unit-price">${price} × {quantity}</span>
+            )}
             <span className="product-card__rating">Rating: {rating}</span>
           </div>
 
           <div className="product-card__actions">
-            <Button
-              variant="ghost"
-              className="product-card__icon-btn product-card__icon-btn--cart"
-              onClick={() => onAddToCart?.(product)}
-              aria-label="Add to cart"
-            >
-              <FiShoppingCart size={18} />
-            </Button>
+            {quantity === undefined && (
+              <Button
+                variant="ghost"
+                className={`product-card__icon-btn product-card__icon-btn--cart${isInBasket ? ' product-card__icon-btn--cart-active' : ''}`}
+                onClick={() => onAddToCart?.(product)}
+                aria-label="Add to cart"
+              >
+                <FiShoppingCart size={18} />
+              </Button>
+            )}
 
             <Button
               variant="ghost"
@@ -52,7 +59,43 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, isFavorite = fals
             >
               Go Details
             </Button>
+
+            {onRemove && quantity === undefined && (
+              <Button
+                variant="ghost"
+                className="product-card__icon-btn product-card__icon-btn--remove"
+                onClick={() => onRemove?.(product)}
+                aria-label="Remove"
+              >
+                <FiTrash2 size={18} />
+              </Button>
+            )}
           </div>
+
+          {quantity !== undefined && (
+            <div className="product-card__qty-row">
+              <button
+                className="product-card__qty-btn"
+                onClick={() => onDecrement?.()}
+                aria-label="Decrease"
+              >−</button>
+              <span className="product-card__qty-count">{quantity}</span>
+              <button
+                className="product-card__qty-btn"
+                onClick={() => onIncrement?.()}
+                aria-label="Increase"
+              >+</button>
+              {onRemove && (
+                <button
+                  className="product-card__qty-remove"
+                  onClick={() => onRemove?.(product)}
+                  aria-label="Remove"
+                >
+                  <FiTrash2 size={16} />
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,49 +1,21 @@
-import { useState, useEffect } from 'react'
-import { NavLink, useNavigate, useLocation, useSearchParams } from 'react-router-dom'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { FiShoppingCart, FiHeart, FiSearch } from 'react-icons/fi'
 import Button from '@shared/components/Button/Button'
 import Input from '@shared/components/Input/Input'
-import useDebounce from '@hooks/useDebounce'
+import useHeaderSearch from '@hooks/useHeaderSearch'
+import { useFavorites } from '@store/FavoritesContext'
+import { useBasket } from '@store/BasketContext'
 import './Header.css'
 
-function Header({ cartCount = 0, wishCount = 0 }) {
+function Header() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const isProductsPage = pathname === '/products'
+  const isProductsPage = pathname === '/products' || pathname === '/favorites' || pathname === '/basket'
   const isHomePage = pathname === '/'
 
-  const [searchVal, setSearchVal] = useState(searchParams.get('q') || '')
-  const [sortVal, setSortVal] = useState(searchParams.get('sort') || '')
-  const debouncedSearch = useDebounce(searchVal)
-
-  useEffect(() => {
-    setSearchParams(prev => {
-      if (debouncedSearch) prev.set('q', debouncedSearch)
-      else prev.delete('q')
-      return new URLSearchParams(prev)
-    })
-  }, [debouncedSearch])
-
-  function handleSearch(e) {
-    setSearchVal(e.target.value)
-  }
-
-  function handleSort(e) {
-    const val = e.target.value
-    setSortVal(val)
-    setSearchParams(prev => {
-      if (val) prev.set('sort', val)
-      else prev.delete('sort')
-      return new URLSearchParams(prev)
-    })
-  }
-
-  function handleReset() {
-    setSearchVal('')
-    setSortVal('')
-    setSearchParams({})
-  }
+  const { searchVal, sortVal, handleSearch, handleSort, handleReset } = useHeaderSearch()
+  const { favorites } = useFavorites()
+  const { basket } = useBasket()
 
   return (
     <header className={`header${isHomePage ? ' header--home' : ''}`}>
@@ -98,13 +70,21 @@ function Header({ cartCount = 0, wishCount = 0 }) {
         </nav>
 
         <div className="header__actions">
-          <button className="header__icon-btn" aria-label="Cart" onClick={() => navigate('/basket')}>
+          <button
+            className={`header__icon-btn${pathname === '/basket' ? ' header__icon-btn--active' : ''}`}
+            aria-label="Cart"
+            onClick={() => navigate('/basket')}
+          >
             <FiShoppingCart size={22} />
-            {cartCount > 0 && <span className="header__badge">{cartCount}</span>}
+            {basket.length > 0 && <span className="header__badge">{basket.length}</span>}
           </button>
-          <button className="header__icon-btn" aria-label="Wishlist" onClick={() => navigate('/favorites')}>
+          <button
+            className={`header__icon-btn${pathname === '/favorites' ? ' header__icon-btn--active' : ''}`}
+            aria-label="Wishlist"
+            onClick={() => navigate('/favorites')}
+          >
             <FiHeart size={22} />
-            {wishCount > 0 && <span className="header__badge">{wishCount}</span>}
+            {favorites.length > 0 && <span className="header__badge">{favorites.length}</span>}
           </button>
         </div>
       </div>
