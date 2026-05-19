@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { FiShoppingCart, FiHeart, FiSearch } from 'react-icons/fi'
 import Button from '@shared/components/Button/Button'
 import Input from '@shared/components/Input/Input'
@@ -8,6 +8,8 @@ import './Header.css'
 
 function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const isProductsPage = pathname === '/products'
   const [searchVal, setSearchVal] = useState('')
   const [sortVal, setSortVal] = useState('')
 
@@ -34,20 +36,24 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
 
   return (
     <header className="header">
-      {/* Sol — Sort + Reset */}
+      {/* Sol — Sort + Reset (yalnız /products səhifəsində) */}
       <div className="header__left">
-        <select
-          className="header__select"
-          value={sortVal}
-          onChange={handleSort}
-        >
-          <option value="">Sort by</option>
-          <option value="name-asc">Name: A → Z</option>
-          <option value="name-desc">Name: Z → A</option>
-          <option value="price-asc">Price: Low → High</option>
-          <option value="price-desc">Price: High → Low</option>
-        </select>
-        <Button onClick={handleReset}>Reset</Button>
+        {isProductsPage && (
+          <>
+            <select
+              className="header__select"
+              value={sortVal}
+              onChange={handleSort}
+            >
+              <option value="">Sort by</option>
+              <option value="name-asc">Name: A → Z</option>
+              <option value="name-desc">Name: Z → A</option>
+              <option value="price-asc">Price: Low → High</option>
+              <option value="price-desc">Price: High → Low</option>
+            </select>
+            <Button onClick={handleReset}>Reset</Button>
+          </>
+        )}
       </div>
 
       {/* Mərkəz — Axtarış */}
