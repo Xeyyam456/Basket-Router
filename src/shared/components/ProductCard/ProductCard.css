@@ -150,7 +150,8 @@
 }
 
 .product-card__details-btn.btn:hover {
-  opacity: 0.9;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1) !important;
+  color: #fff !important;
   box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
   transform: translateY(-1px);
 }
@@ -158,8 +159,4 @@
 .product-card__details-btn.btn:active {
   transform: translateY(0);
   box-shadow: none;
-}
-
-.product-card__actions .btn:hover {
-  background: #0c6481;
 }

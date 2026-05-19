@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import useTitle from '@hooks/useTitle'
-import { productService } from '@features/product/productService'
-import ProductGrid from '@features/product/ProductGrid'
+import { productService } from '@features/productService'
+import ProductGrid from './ProductGrid'
 import './Products.css'
 
 function Products() {
@@ -37,7 +37,6 @@ function Products() {
 
   return (
     <div className="products-page">
-      <h1 className="products-page__heading">Products ({products.length})</h1>
       <ProductGrid
         products={products}
         favorites={favorites}

@@ -4,11 +4,11 @@ import './ProductDetail.css'
 
 function ProductDetail() {
   const { id } = useParams()
-  useTitle(`Product #${id}`)
+  useTitle(`Product ${id}`)
 
   return (
     <div className="product-detail-page">
-      <h1>Product #{id}</h1>
+      <h1>Product {id}</h1>
     </div>
   )
 }

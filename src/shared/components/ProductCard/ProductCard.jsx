@@ -36,7 +36,9 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, isFavorite = fals
 
             <Button
               variant="ghost"
-              className={`product-card__icon-btn product-card__icon-btn--fav${isFavorite ? ' product-card__icon-btn--fav-active' : ''}`}
+              className={`product-card__icon-btn product-card__icon-btn--fav${
+                isFavorite ? ' product-card__icon-btn--fav-active' : ''
+              }`}
               onClick={() => onToggleFavorite?.(product)}
               aria-label="Toggle favorite"
             >

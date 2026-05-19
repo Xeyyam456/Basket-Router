@@ -1,4 +1,4 @@
-import ProductCard from './ProductCard'
+import ProductCard from '@shared/components/ProductCard/ProductCard'
 import './ProductGrid.css'
 
 function ProductGrid({ products, favorites = [], onAddToCart, onToggleFavorite }) {
