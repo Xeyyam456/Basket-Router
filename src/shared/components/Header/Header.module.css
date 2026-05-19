@@ -14,12 +14,35 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Sol */
 .header__left {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+}
+
+.header__logo {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  user-select: none;
+}
+
+.header__logo-dummy {
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #c084fc, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header__logo-json {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #38bdf8;
 }
 
 .header__select {
@@ -43,32 +66,10 @@
   background: #1e293b;
   color: #e2e8f0;
 }
-}
 
-.header__reset {
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 14px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.header__reset:hover {
-  background: #1d4ed8;
-}
-
-/* Mərkəz — Axtarış */
 .header__search-wrap {
   flex: 1;
   max-width: 420px;
-}
-
-/* Home səhifəsində nav mərkəzdə, ikonlar sağda */
-.header--home .header__left {
-  display: none;
 }
 
 .header--home .header__right {
@@ -85,7 +86,6 @@
   margin-left: auto;
 }
 
-/* Sağ */
 .header__right {
   display: flex;
   align-items: center;
@@ -114,7 +114,6 @@
   color: #38bdf8;
 }
 
-/* İkon düymələri */
 .header__actions {
   display: flex;
   align-items: center;

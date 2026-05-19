@@ -2,39 +2,44 @@ import { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiShoppingCart, FiHeart, FiTrash2 } from 'react-icons/fi'
 import Button from '@shared/components/Button/Button'
-import './ProductCard.css'
+import clsx from 'clsx'
+import styles from './ProductCard.module.css'
 
 function ProductCard({ product, onAddToCart, onToggleFavorite, onRemove, onIncrement, onDecrement, isFavorite = false, isInBasket = false, quantity }) {
   const navigate = useNavigate()
   const { id, title, description, price, rating, category, thumbnail } = product
 
   return (
-    <div className="product-card">
-      <div className="product-card__img-wrap">
-        <img src={thumbnail} alt={title} className="product-card__img" loading="lazy" />
+    <div className={styles['product-card']}>
+      <div className={styles['product-card__img-wrap']}>
+        <img src={thumbnail} alt={title} className={styles['product-card__img']} loading="lazy" />
       </div>
 
-      <div className="product-card__body">
-        <h3 className="product-card__title">{title}</h3>
-        <p className="product-card__desc">{description}</p>
-        <p className="product-card__category">Category: {category}</p>
+      <div className={styles['product-card__body']}>
+        <h3 className={styles['product-card__title']}>{title}</h3>
+        <p className={styles['product-card__desc']}>{description}</p>
+        <p className={styles['product-card__category']}>Category: {category}</p>
 
-        <div className="product-card__footer">
-          <div className="product-card__info">
-            <span className="product-card__price">
+        <div className={styles['product-card__footer']}>
+          <div className={styles['product-card__info']}>
+            <span className={styles['product-card__price']}>
               ${quantity !== undefined ? (price * quantity).toFixed(2) : price}
             </span>
             {quantity !== undefined && quantity > 1 && (
-              <span className="product-card__unit-price">${price} × {quantity}</span>
+              <span className={styles['product-card__unit-price']}>${price} × {quantity}</span>
             )}
-            <span className="product-card__rating">Rating: {rating}</span>
+            <span className={styles['product-card__rating']}>Rating: {rating}</span>
           </div>
 
-          <div className="product-card__actions">
+          <div className={styles['product-card__actions']}>
             {quantity === undefined && (
               <Button
                 variant="ghost"
-                className={`product-card__icon-btn product-card__icon-btn--cart${isInBasket ? ' product-card__icon-btn--cart-active' : ''}`}
+                className={clsx(
+                  styles['product-card__icon-btn'],
+                  styles['product-card__icon-btn--cart'],
+                  isInBasket && styles['product-card__icon-btn--cart-active']
+                )}
                 onClick={() => onAddToCart?.(product)}
                 aria-label="Add to cart"
               >
@@ -44,9 +49,11 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, onRemove, onIncre
 
             <Button
               variant="ghost"
-              className={`product-card__icon-btn product-card__icon-btn--fav${
-                isFavorite ? ' product-card__icon-btn--fav-active' : ''
-              }`}
+              className={clsx(
+                styles['product-card__icon-btn'],
+                styles['product-card__icon-btn--fav'],
+                isFavorite && styles['product-card__icon-btn--fav-active']
+              )}
               onClick={() => onToggleFavorite?.(product)}
               aria-label="Toggle favorite"
             >
@@ -55,7 +62,7 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, onRemove, onIncre
 
             <Button
               variant="ghost"
-              className="product-card__details-btn"
+              className={styles['product-card__details-btn']}
               onClick={() => navigate(`/products/${id}`)}
             >
               Go Details
@@ -64,7 +71,7 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, onRemove, onIncre
             {onRemove && quantity === undefined && (
               <Button
                 variant="ghost"
-                className="product-card__icon-btn product-card__icon-btn--remove"
+                className={clsx(styles['product-card__icon-btn'], styles['product-card__icon-btn--remove'])}
                 onClick={() => onRemove?.(product)}
                 aria-label="Remove"
               >
@@ -74,24 +81,24 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, onRemove, onIncre
           </div>
 
           {quantity !== undefined && (
-            <div className="product-card__qty-row">
+            <div className={styles['product-card__qty-row']}>
               <Button
                 variant="ghost"
-                className="product-card__qty-btn"
+                className={styles['product-card__qty-btn']}
                 onClick={() => onDecrement?.(id)}
                 aria-label="Decrease"
               >−</Button>
-              <span className="product-card__qty-count">{quantity}</span>
+              <span className={styles['product-card__qty-count']}>{quantity}</span>
               <Button
                 variant="ghost"
-                className="product-card__qty-btn"
+                className={styles['product-card__qty-btn']}
                 onClick={() => onIncrement?.(id)}
                 aria-label="Increase"
               >+</Button>
               {onRemove && (
                 <Button
                   variant="ghost"
-                  className="product-card__qty-remove"
+                  className={styles['product-card__qty-remove']}
                   onClick={() => onRemove?.(product)}
                   aria-label="Remove"
                 >

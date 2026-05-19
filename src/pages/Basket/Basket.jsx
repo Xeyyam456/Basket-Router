@@ -7,7 +7,7 @@ import useSearchFilter from '@hooks/useSearchFilter'
 import Button from '@shared/components/Button/Button'
 import ProductGrid from '../Products/ProductGrid'
 import ConfirmModal from '@shared/components/ConfirmModal/ConfirmModal'
-import './Basket.css'
+import styles from './Basket.module.css'
 
 function Basket() {
   useTitle('Basket')
@@ -38,17 +38,17 @@ function Basket() {
   )
 
   return (
-    <div className="basket-page">
+    <div className={styles['basket-page']}>
       {basket.length === 0 ? (
-        <div className="basket-page__empty">
-          <FiShoppingCart className="basket-page__empty-icon" />
-          <p className="basket-page__empty-text">Your basket is empty</p>
+        <div className={styles['basket-page__empty']}>
+          <FiShoppingCart className={styles['basket-page__empty-icon']} />
+          <p className={styles['basket-page__empty-text']}>Your basket is empty</p>
         </div>
       ) : (
         <>
-          <div className="basket-page__summary">
-            <span className="basket-page__total">Total: <strong>$ {total.toFixed(2)}</strong></span>
-            <Button variant="danger" className="basket-page__remove-all" onClick={() => setRemoveAllOpen(true)}>Remove All</Button>
+          <div className={styles['basket-page__summary']}>
+            <span className={styles['basket-page__total']}>Total: <strong>$ {total.toFixed(2)}</strong></span>
+            <Button variant="danger" className={styles['basket-page__remove-all']} onClick={() => setRemoveAllOpen(true)}>Remove All</Button>
           </div>
 
           <ProductGrid

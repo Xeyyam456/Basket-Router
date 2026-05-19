@@ -13,7 +13,6 @@
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
 }
 
-/* Image */
 .product-card__img-wrap {
   width: 100%;
   height: 220px;
@@ -33,7 +32,6 @@
   transform: scale(1.04);
 }
 
-/* Body */
 .product-card__body {
   padding: 16px;
   display: flex;
@@ -63,7 +61,6 @@
   color: #64748b;
 }
 
-/* Footer */
 .product-card__footer {
   margin-top: auto;
   padding-top: 12px;
@@ -94,59 +91,96 @@
   color: #64748b;
 }
 
-/* Actions */
 .product-card__actions {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* Bütün action düymələri eyni hündürlük */
-.product-card__actions .btn {
+.product-card__actions button {
   height: 38px;
 }
 
-/* İkon düymələri — kvadrat */
-.product-card__icon-btn.btn {
+.product-card__icon-btn {
   width: 38px;
   padding: 0;
   border-radius: 8px;
   flex-shrink: 0;
 }
 
-.product-card__icon-btn--cart.btn {
+.product-card__icon-btn--cart {
   background: #2563eb;
   color: #fff;
   border: none;
 }
 
-.product-card__icon-btn--cart.btn:hover {
+.product-card__icon-btn--cart:hover {
   background: #1d4ed8;
 }
 
-.product-card__icon-btn--cart-active.btn {
+.product-card__icon-btn--cart-active {
   background: #16a34a;
   color: #fff;
   border: none;
 }
 
-.product-card__icon-btn--cart-active.btn:hover {
+.product-card__icon-btn--cart-active:hover {
   background: #15803d;
 }
 
-.product-card__icon-btn--remove.btn {
+.product-card__icon-btn--remove {
   background: transparent;
   color: #64748b;
   border: 1px solid #334155;
 }
 
-.product-card__icon-btn--remove.btn:hover {
+.product-card__icon-btn--remove:hover {
   background: #f43f5e !important;
   color: #fff !important;
   border-color: #f43f5e;
 }
 
-/* Quantity row (basket page) */
+.product-card__icon-btn--fav {
+  background: transparent;
+  color: #f43f5e;
+  border: 2px solid #f43f5e;
+}
+
+.product-card__icon-btn--fav:hover:not(:disabled) {
+  background: #f43f5e !important;
+  color: #fff !important;
+  border-color: #f43f5e;
+}
+
+.product-card__icon-btn--fav-active {
+  background: #f43f5e;
+  color: #fff;
+  border-color: #f43f5e;
+}
+
+.product-card__details-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  transition: opacity 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.product-card__details-btn:hover {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+  transform: translateY(-1px);
+}
+
+.product-card__details-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 .product-card__qty-row {
   display: flex;
   align-items: center;
@@ -204,46 +238,4 @@
 .product-card__qty-remove:hover {
   background: #f43f5e;
   color: #fff;
-}
-
-.product-card__icon-btn--fav.btn {
-  background: transparent;
-  color: #f43f5e;
-  border: 2px solid #f43f5e;
-}
-
-.product-card__icon-btn--fav.btn:hover:not(:disabled) {
-  background: #f43f5e !important;
-  color: #fff !important;
-  border-color: #f43f5e;
-}
-
-.product-card__icon-btn--fav-active.btn {
-  background: #f43f5e;
-  color: #fff;
-  border-color: #f43f5e;
-}
-
-/* Go Details düyməsi */
-.product-card__details-btn.btn {
-  flex: 1;
-  background: linear-gradient(135deg, #0ea5e9, #6366f1);
-  color: #fff;
-  border: none;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
-  transition: opacity 0.2s, box-shadow 0.2s, transform 0.15s;
-}
-
-.product-card__details-btn.btn:hover {
-  background: linear-gradient(135deg, #0ea5e9, #6366f1) !important;
-  color: #fff !important;
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
-  transform: translateY(-1px);
-}
-
-.product-card__details-btn.btn:active {
-  transform: translateY(0);
-  box-shadow: none;
 }

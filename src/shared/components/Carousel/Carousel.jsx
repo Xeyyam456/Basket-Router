@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import './Carousel.css'
+import clsx from 'clsx'
+import styles from './Carousel.module.css'
 
 const slides = [
   { id: 1, src: 'https://picsum.photos/seed/basket1/900/450', alt: 'Slide 1' },
@@ -20,26 +21,26 @@ function Carousel() {
   }, [])
 
   return (
-    <div className="carousel">
+    <div className={styles.carousel}>
       <div
-        className="carousel__track"
-        style={{ transform: `translateX(-${active * 100}%)` }}
+        className={styles['carousel__track']}
+        style={{ '--translate': `-${active * 100}%` }}
       >
         {slides.map(slide => (
           <img
             key={slide.id}
             src={slide.src}
             alt={slide.alt}
-            className="carousel__slide"
+            className={styles['carousel__slide']}
           />
         ))}
       </div>
 
-      <div className="carousel__dots">
+      <div className={styles['carousel__dots']}>
         {slides.map((slide, i) => (
           <button
             key={slide.id}
-            className={`carousel__dot${i === active ? ' carousel__dot--active' : ''}`}
+            className={clsx(styles['carousel__dot'], i === active && styles['carousel__dot--active'])}
             onClick={() => setActive(i)}
             aria-label={`Slide ${i + 1}`}
           />

@@ -1,0 +1,20 @@
+.grid {
+  width: 100%;
+}
+
+.inner {
+  position: relative;
+  height: var(--total);
+}
+
+.row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  gap: 24px;
+  padding-bottom: 24px;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  transform: translateY(var(--row-start));
+}

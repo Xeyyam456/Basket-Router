@@ -1,0 +1,9 @@
+/* ── Tətbiqin kök konteyneri ── */
+.app {
+  min-height: 100vh;
+  background: #0f172a;
+  color: #f1f5f9;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,20 +1,20 @@
-import './LoadingBar.css'
+import styles from './LoadingBar.module.css'
 
 function LoadingBar() {
   return (
     <>
-      <div className="loading-bar">
-        <div className="loading-bar__track">
-          <div className="loading-bar__fill" />
-          <div className="loading-bar__comet" />
+      <div className={styles['loading-bar']}>
+        <div className={styles['loading-bar__track']}>
+          <div className={styles['loading-bar__fill']} />
+          <div className={styles['loading-bar__comet']} />
         </div>
       </div>
 
-      <div className="loading-center">
-        <div className="loading-ring">
+      <div className={styles['loading-center']}>
+        <div className={styles['loading-ring']}>
           <div /><div /><div /><div />
         </div>
-        <p className="loading-center__text">Loading...</p>
+        <p className={styles['loading-center__text']}>Loading...</p>
       </div>
     </>
   )

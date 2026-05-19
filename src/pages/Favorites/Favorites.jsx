@@ -7,7 +7,7 @@ import useSearchFilter from '@hooks/useSearchFilter'
 import Button from '@shared/components/Button/Button'
 import ProductGrid from '../Products/ProductGrid'
 import ConfirmModal from '@shared/components/ConfirmModal/ConfirmModal'
-import './Favorites.css'
+import styles from './Favorites.module.css'
 
 function Favorites() {
   useTitle('Favorites')
@@ -28,16 +28,16 @@ function Favorites() {
   }, [removeTarget, toggleFavorite])
 
   return (
-    <div className="favorites-page">
+    <div className={styles['favorites-page']}>
       {favorites.length === 0 ? (
-        <div className="favorites-page__empty">
-          <FiHeart className="favorites-page__empty-icon" />
-          <p className="favorites-page__empty-text">No favorites yet</p>
+        <div className={styles['favorites-page__empty']}>
+          <FiHeart className={styles['favorites-page__empty-icon']} />
+          <p className={styles['favorites-page__empty-text']}>No favorites yet</p>
         </div>
       ) : (
         <>
-          <div className="favorites-page__summary">
-            <Button variant="danger" className="favorites-page__remove-all" onClick={() => setRemoveAllOpen(true)}>Remove All</Button>
+          <div className={styles['favorites-page__summary']}>
+            <Button variant="danger" className={styles['favorites-page__remove-all']} onClick={() => setRemoveAllOpen(true)}>Remove All</Button>
           </div>
 
           <ProductGrid

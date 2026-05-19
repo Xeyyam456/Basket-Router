@@ -1,4 +1,5 @@
-import './Button.css'
+import clsx from 'clsx'
+import styles from './Button.module.css'
 
 function Button({
   children,
@@ -13,7 +14,7 @@ function Button({
   return (
     <button
       type={type}
-      className={`btn btn--${variant} btn--${size} ${className}`.trim()}
+      className={clsx(styles.btn, styles[`btn--${variant}`], styles[`btn--${size}`], className)}
       onClick={onClick}
       disabled={disabled}
       {...rest}

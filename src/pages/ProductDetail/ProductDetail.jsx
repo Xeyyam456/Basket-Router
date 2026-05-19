@@ -8,7 +8,8 @@ import { useFavorites } from '@store/favoritesStore'
 import { productService } from '@services/productService'
 import LoadingBar from '@shared/components/LoadingBar/LoadingBar'
 import Button from '@shared/components/Button/Button'
-import './ProductDetail.css'
+import clsx from 'clsx'
+import styles from './ProductDetail.module.css'
 
 function ProductDetail() {
   const { id } = useParams()
@@ -34,8 +35,8 @@ function ProductDetail() {
   if (isLoading) return <LoadingBar />
 
   if (!product) return (
-    <div className="product-detail-page">
-      <p className="product-detail__error">Məhsul tapılmadı</p>
+    <div className={styles['product-detail-page']}>
+      <p className={styles['product-detail__error']}>Məhsul tapılmadı</p>
     </div>
   )
 
@@ -47,36 +48,36 @@ function ProductDetail() {
   const stars = Math.round(product.rating ?? 0)
 
   return (
-    <div className="product-detail-page">
-      <button className="product-detail__back" onClick={() => navigate('/products')}>
+    <div className={styles['product-detail-page']}>
+      <button className={styles['product-detail__back']} onClick={() => navigate('/products')}>
         <FiArrowLeft size={16} /> Back
       </button>
 
-      <div className="product-detail__grid">
+      <div className={styles['product-detail__grid']}>
 
         {/* ── Gallery ── */}
-        <div className="product-detail__gallery">
-          <div className="product-detail__main-img-wrap">
+        <div className={styles['product-detail__gallery']}>
+          <div className={styles['product-detail__main-img-wrap']}>
             <img
               src={product.images?.[activeImg] ?? product.thumbnail}
               alt={product.title}
-              className="product-detail__main-img"
+              className={styles['product-detail__main-img']}
             />
             {product.discountPercentage > 0 && (
-              <span className="product-detail__discount-badge">
+              <span className={styles['product-detail__discount-badge']}>
                 -{Math.round(product.discountPercentage)}%
               </span>
             )}
           </div>
 
           {product.images?.length > 1 && (
-            <div className="product-detail__thumbs">
+            <div className={styles['product-detail__thumbs']}>
               {product.images.map((img, i) => (
                 <img
                   key={i}
                   src={img}
                   alt={`${product.title} ${i + 1}`}
-                  className={`product-detail__thumb${activeImg === i ? ' product-detail__thumb--active' : ''}`}
+                  className={clsx(styles['product-detail__thumb'], activeImg === i && styles['product-detail__thumb--active'])}
                   onClick={() => setActiveImg(i)}
                 />
               ))}
@@ -85,48 +86,48 @@ function ProductDetail() {
         </div>
 
         {/* ── Info ── */}
-        <div className="product-detail__info">
-          <span className="product-detail__category">{product.category}</span>
-          <h1 className="product-detail__title">{product.title}</h1>
-          {product.brand && <p className="product-detail__brand">by {product.brand}</p>}
+        <div className={styles['product-detail__info']}>
+          <span className={styles['product-detail__category']}>{product.category}</span>
+          <h1 className={styles['product-detail__title']}>{product.title}</h1>
+          {product.brand && <p className={styles['product-detail__brand']}>by {product.brand}</p>}
 
-          <div className="product-detail__rating">
-            <div className="product-detail__stars">
+          <div className={styles['product-detail__rating']}>
+            <div className={styles['product-detail__stars']}>
               {Array.from({ length: 5 }, (_, i) => (
                 <FiStar
                   key={i}
                   size={18}
-                  className={i < stars ? 'pd-star--filled' : 'pd-star--empty'}
+                  className={i < stars ? styles['pd-star--filled'] : styles['pd-star--empty']}
                 />
               ))}
             </div>
-            <span className="product-detail__rating-val">{product.rating}</span>
+            <span className={styles['product-detail__rating-val']}>{product.rating}</span>
           </div>
 
-          <div className="product-detail__price-wrap">
-            <span className="product-detail__price">${discounted ?? product.price}</span>
+          <div className={styles['product-detail__price-wrap']}>
+            <span className={styles['product-detail__price']}>${discounted ?? product.price}</span>
             {discounted && (
-              <span className="product-detail__original-price">${product.price}</span>
+              <span className={styles['product-detail__original-price']}>${product.price}</span>
             )}
           </div>
 
-          <p className="product-detail__desc">{product.description}</p>
+          <p className={styles['product-detail__desc']}>{product.description}</p>
 
-          <div className="product-detail__meta">
-            <span className="product-detail__stock">
+          <div className={styles['product-detail__meta']}>
+            <span className={styles['product-detail__stock']}>
               <FiPackage size={13} /> Stock: {product.stock}
             </span>
             {product.tags?.map(tag => (
-              <span key={tag} className="product-detail__tag">
+              <span key={tag} className={styles['product-detail__tag']}>
                 <FiTag size={11} /> {tag}
               </span>
             ))}
           </div>
 
-          <div className="product-detail__actions">
+          <div className={styles['product-detail__actions']}>
             <Button
               variant="ghost"
-              className={`pd-btn pd-btn--cart${inBasket ? ' pd-btn--cart-active' : ''}`}
+              className={clsx(styles['pd-btn'], styles['pd-btn--cart'], inBasket && styles['pd-btn--cart-active'])}
               onClick={() => toggleBasket(product)}
             >
               <FiShoppingCart size={17} />
@@ -135,7 +136,7 @@ function ProductDetail() {
 
             <Button
               variant="ghost"
-              className={`pd-btn pd-btn--fav${isFav ? ' pd-btn--fav-active' : ''}`}
+              className={clsx(styles['pd-btn'], styles['pd-btn--fav'], isFav && styles['pd-btn--fav-active'])}
               onClick={() => toggleFavorite(product)}
             >
               <FiHeart size={17} />

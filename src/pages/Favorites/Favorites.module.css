@@ -34,7 +34,7 @@
   margin-bottom: 24px;
 }
 
-.favorites-page__remove-all.btn {
+.favorites-page__remove-all {
   background: #b91c1c !important;
   color: #fff !important;
   border: none !important;
@@ -44,7 +44,7 @@
   transition: background 0.15s;
 }
 
-.favorites-page__remove-all.btn:hover {
+.favorites-page__remove-all:hover {
   background: #991b1b !important;
 }
 

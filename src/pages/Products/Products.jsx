@@ -6,7 +6,7 @@ import useSearchFilter from '@hooks/useSearchFilter'
 import { useBasket } from '@store/basketStore'
 import LoadingBar from '@shared/components/LoadingBar/LoadingBar'
 import ProductGrid from './ProductGrid'
-import './Products.css'
+import styles from './Products.module.css'
 
 function Products() {
   useTitle('Products')
@@ -21,10 +21,10 @@ function Products() {
   }, [toggleBasket])
 
   if (loading) return <LoadingBar />
-  if (error)   return <div className="products-page"><p className="products-page__msg products-page__msg--error">{error}</p></div>
+  if (error)   return <div className={styles['products-page']}><p className={`${styles['products-page__msg']} ${styles['products-page__msg--error']}`}>{error}</p></div>
 
   return (
-    <div className="products-page">
+    <div className={styles['products-page']}>
       <ProductGrid
         products={displayed}
         favorites={favorites}
