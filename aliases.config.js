@@ -8,7 +8,7 @@ const aliases = {
   '@shared': 'src/shared',
   '@components': 'src/components',
   '@assets': 'src/assets',
-  '@hooks': 'src/hooks',
+  '@hooks': 'src/shared/hooks',
   '@store': 'src/store',
   '@utils': 'src/utils',
   '@features': 'src/features',

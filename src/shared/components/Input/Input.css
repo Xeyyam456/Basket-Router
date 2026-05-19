@@ -1,0 +1,67 @@
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-wrap__icon {
+  position: absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.input-wrap__field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #f1f5f9;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.input-wrap__field::placeholder {
+  color: #64748b;
+}
+
+.input-wrap__field:focus {
+  border-color: #38bdf8;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.input-wrap__field:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Sizes */
+.input-wrap--sm .input-wrap__field {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.input-wrap--sm.input-wrap--has-icon .input-wrap__field {
+  padding-left: 32px;
+}
+
+.input-wrap--md .input-wrap__field {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.input-wrap--md.input-wrap--has-icon .input-wrap__field {
+  padding-left: 36px;
+}
+
+.input-wrap--lg .input-wrap__field {
+  padding: 11px 14px;
+  font-size: 1rem;
+}
+
+.input-wrap--lg.input-wrap--has-icon .input-wrap__field {
+  padding-left: 40px;
+}

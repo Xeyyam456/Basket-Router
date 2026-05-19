@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { FiShoppingCart, FiHeart, FiSearch } from 'react-icons/fi'
 import Button from '@shared/components/Button/Button'
+import Input from '@shared/components/Input/Input'
+import useDebounce from '@hooks/useDebounce'
 import './Header.css'
 
 function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
@@ -9,9 +11,14 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
   const [searchVal, setSearchVal] = useState('')
   const [sortVal, setSortVal] = useState('')
 
+  const debouncedSearch = useDebounce(searchVal)
+
+  useEffect(() => {
+    onSearch?.(debouncedSearch)
+  }, [debouncedSearch])
+
   function handleSearch(e) {
     setSearchVal(e.target.value)
-    onSearch?.(e.target.value)
   }
 
   function handleSort(e) {
@@ -45,13 +52,11 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
 
       {/* Mərkəz — Axtarış */}
       <div className="header__search-wrap">
-        <FiSearch className="header__search-icon" />
-        <input
-          className="header__search"
-          type="text"
+        <Input
           placeholder="Search products..."
           value={searchVal}
           onChange={handleSearch}
+          icon={<FiSearch size={16} />}
         />
       </div>
 
