@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { FiShoppingCart, FiHeart, FiSearch } from 'react-icons/fi'
+import Button from '@shared/components/Button/Button'
 import './Header.css'
 
 function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
@@ -34,13 +35,12 @@ function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
           onChange={handleSort}
         >
           <option value="">Sort by</option>
+          <option value="name-asc">Name: A → Z</option>
+          <option value="name-desc">Name: Z → A</option>
           <option value="price-asc">Price: Low → High</option>
           <option value="price-desc">Price: High → Low</option>
-          <option value="name">Name</option>
         </select>
-        <button className="header__reset" onClick={handleReset}>
-          Reset
-        </button>
+        <Button onClick={handleReset}>Reset</Button>
       </div>
 
       {/* Mərkəz — Axtarış */}

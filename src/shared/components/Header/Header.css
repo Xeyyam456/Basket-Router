@@ -10,8 +10,7 @@
   gap: 16px;
   padding: 0 24px;
   height: 64px;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(10px);
+  background: #0f172a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -24,19 +23,26 @@
 }
 
 .header__select {
-  background: rgba(255, 255, 255, 0.07);
+  background: #1e293b;
   color: #cbd5e1;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid #38bdf8;
   border-radius: 6px;
   padding: 6px 10px;
   font-size: 0.875rem;
   cursor: pointer;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .header__select:focus {
-  border-color: #38bdf8;
+  border-color: #7dd3fc;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+}
+
+.header__select option {
+  background: #1e293b;
+  color: #e2e8f0;
+}
 }
 
 .header__reset {
