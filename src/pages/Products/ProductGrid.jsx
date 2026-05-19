@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import ProductCard from '@shared/components/ProductCard/ProductCard'
 import './ProductGrid.css'
 
@@ -14,12 +15,12 @@ function ProductGrid({ products, favorites = [], basket = [], onAddToCart, onTog
           onAddToCart={onAddToCart}
           onToggleFavorite={onToggleFavorite}
           onRemove={onRemove}
-          onIncrement={onIncrement ? () => onIncrement(product.id) : undefined}
-          onDecrement={onDecrement ? () => onDecrement(product.id) : undefined}
+          onIncrement={onIncrement}
+          onDecrement={onDecrement}
         />
       ))}
     </div>
   )
 }
 
-export default ProductGrid
+export default memo(ProductGrid)

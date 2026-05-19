@@ -9,6 +9,7 @@ const Products      = lazy(() => import('@pages/Products/Products'))
 const ProductDetail = lazy(() => import('@pages/ProductDetail/ProductDetail'))
 const Favorites     = lazy(() => import('@pages/Favorites/Favorites'))
 const Basket        = lazy(() => import('@pages/Basket/Basket'))
+const NotFound      = lazy(() => import('@pages/NotFound/NotFound'))
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/favorites"      element={<Favorites />} />
           <Route path="/basket"         element={<Basket />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   )

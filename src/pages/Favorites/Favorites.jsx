@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { FiHeart } from 'react-icons/fi'
 import useTitle from '@hooks/useTitle'
 import useFavorites from '@hooks/useFavorites'
@@ -18,14 +18,14 @@ function Favorites() {
   const [removeTarget, setRemoveTarget] = useState(null)
   const [removeAllOpen, setRemoveAllOpen] = useState(false)
 
-  function handleRemove(product) {
+  const handleRemove = useCallback((product) => {
     setRemoveTarget(product)
-  }
+  }, [])
 
-  function confirmRemove() {
+  const confirmRemove = useCallback(() => {
     if (removeTarget) toggleFavorite(removeTarget)
     setRemoveTarget(null)
-  }
+  }, [removeTarget, toggleFavorite])
 
   return (
     <div className="favorites-page">

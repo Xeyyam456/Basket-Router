@@ -1,0 +1,162 @@
+/* ── Page ── */
+.nf {
+  position: relative;
+  min-height: 100vh;
+  background: #060d1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #f1f5f9;
+}
+
+/* ── Aurora Blobs ── */
+.nf__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.18;
+  animation: nf-blob 10s ease-in-out infinite alternate;
+}
+.nf__blob--1 {
+  width: 500px; height: 500px;
+  background: #38bdf8;
+  top: -100px; left: -100px;
+  animation-delay: 0s;
+}
+.nf__blob--2 {
+  width: 400px; height: 400px;
+  background: #818cf8;
+  bottom: -80px; right: -80px;
+  animation-delay: -4s;
+}
+.nf__blob--3 {
+  width: 300px; height: 300px;
+  background: #f43f5e;
+  top: 50%; left: 55%;
+  animation-delay: -7s;
+}
+@keyframes nf-blob {
+  from { transform: scale(1) translate(0, 0); }
+  to   { transform: scale(1.2) translate(40px, -40px); }
+}
+
+/* ── Grid ── */
+.nf__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+/* ── Card ── */
+.nf__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 52px 56px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+  animation: nf-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  max-width: 480px;
+  width: 90%;
+}
+@keyframes nf-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Badge ── */
+.nf__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 4px 14px;
+  border-radius: 99px;
+}
+
+/* ── 404 Number ── */
+.nf__number {
+  font-size: clamp(6rem, 18vw, 10rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -4px;
+  background: linear-gradient(135deg, #f1f5f9 0%, #64748b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  filter: drop-shadow(0 0 40px rgba(56,189,248,0.15));
+}
+
+/* ── Text ── */
+.nf__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #f1f5f9;
+  letter-spacing: -0.3px;
+}
+
+.nf__sub {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.65;
+  max-width: 320px;
+}
+
+/* ── Buttons ── */
+.nf__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nf__btn {
+  padding: 11px 28px !important;
+  border-radius: 12px !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+.nf__btn:hover { transform: translateY(-2px) !important; }
+.nf__btn:active { transform: scale(0.97) !important; }
+
+.nf__btn--primary {
+  background: linear-gradient(135deg, #38bdf8, #818cf8) !important;
+  color: #0f172a !important;
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(56,189,248,0.25) !important;
+}
+
+.nf__btn--ghost {
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  color: #94a3b8 !important;
+  background: rgba(255,255,255,0.04) !important;
+}
+.nf__btn--ghost:hover {
+  border-color: rgba(255,255,255,0.25) !important;
+  color: #f1f5f9 !important;
+}
+

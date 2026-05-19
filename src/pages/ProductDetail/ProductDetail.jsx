@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { FiShoppingCart, FiHeart, FiStar, FiArrowLeft, FiTag, FiPackage } from 'react-icons/fi'
 import useTitle from '@hooks/useTitle'
 import { useBasket } from '@store/basketStore'
@@ -18,11 +18,16 @@ function ProductDetail() {
   const { basket, toggle: toggleBasket } = useBasket()
   const { favorites, toggle: toggleFavorite } = useFavorites()
 
+  const queryClient = useQueryClient()
+
   const { data: product, isLoading } = useQuery({
     queryKey: ['product', id],
     queryFn: () => productService.getById(id),
-    onSuccess: () => setActiveImg(0),
+    placeholderData: () =>
+      queryClient.getQueryData(['products'])?.find(p => p.id === +id),
   })
+
+  useEffect(() => { setActiveImg(0) }, [id])
 
   useTitle(product?.title)
 

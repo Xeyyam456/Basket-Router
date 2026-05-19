@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { FiShoppingCart } from 'react-icons/fi'
 import useTitle from '@hooks/useTitle'
 import { useBasket } from '@store/basketStore'
@@ -18,16 +18,24 @@ function Basket() {
   const [removeTarget, setRemoveTarget] = useState(null)
   const [removeAllOpen, setRemoveAllOpen] = useState(false)
 
-  const total = basket.reduce((sum, item) => sum + item.price * (item.quantity ?? 1), 0)
+  const total = useMemo(
+    () => basket.reduce((sum, item) => sum + item.price * (item.quantity ?? 1), 0),
+    [basket]
+  )
 
-  function handleRemove(product) {
+  const handleRemove = useCallback((product) => {
     setRemoveTarget(product)
-  }
+  }, [])
 
-  function confirmRemove() {
+  const confirmRemove = useCallback(() => {
     if (removeTarget) toggleBasket(removeTarget)
     setRemoveTarget(null)
-  }
+  }, [removeTarget, toggleBasket])
+
+  const getQuantity = useCallback(
+    (id) => basket.find(b => b.id === id)?.quantity ?? 1,
+    [basket]
+  )
 
   return (
     <div className="basket-page">
@@ -49,7 +57,7 @@ function Basket() {
             basket={basket}
             onToggleFavorite={toggleFavorite}
             onRemove={handleRemove}
-            getQuantity={id => basket.find(b => b.id === id)?.quantity ?? 1}
+            getQuantity={getQuantity}
             onIncrement={increment}
             onDecrement={decrement}
           />

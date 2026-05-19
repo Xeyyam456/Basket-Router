@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiShoppingCart, FiHeart, FiTrash2 } from 'react-icons/fi'
 import Button from '@shared/components/Button/Button'
@@ -77,14 +78,14 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, onRemove, onIncre
               <Button
                 variant="ghost"
                 className="product-card__qty-btn"
-                onClick={() => onDecrement?.()}
+                onClick={() => onDecrement?.(id)}
                 aria-label="Decrease"
               >−</Button>
               <span className="product-card__qty-count">{quantity}</span>
               <Button
                 variant="ghost"
                 className="product-card__qty-btn"
-                onClick={() => onIncrement?.()}
+                onClick={() => onIncrement?.(id)}
                 aria-label="Increase"
               >+</Button>
               {onRemove && (
@@ -105,4 +106,4 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, onRemove, onIncre
   )
 }
 
-export default ProductCard
+export default memo(ProductCard)

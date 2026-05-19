@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import useTitle from '@hooks/useTitle'
 import useProducts from '@hooks/useProducts'
 import useFavorites from '@hooks/useFavorites'
@@ -15,9 +16,9 @@ function Products() {
   const { basket, toggle: toggleBasket } = useBasket()
   const displayed = useSearchFilter(products)
 
-  function handleAddToCart(product) {
+  const handleAddToCart = useCallback((product) => {
     toggleBasket(product)
-  }
+  }, [toggleBasket])
 
   if (loading) return <LoadingBar />
   if (error)   return <div className="products-page"><p className="products-page__msg products-page__msg--error">{error}</p></div>
