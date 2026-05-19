@@ -30,8 +30,13 @@ export function FavoritesProvider({ children }) {
     })
   }
 
+  function clearFavorites() {
+    setFavorites([])
+    saveToStorage([])
+  }
+
   return (
-    <FavoritesContext.Provider value={{ favorites, toggle }}>
+    <FavoritesContext.Provider value={{ favorites, toggle, clearFavorites }}>
       {children}
     </FavoritesContext.Provider>
   )

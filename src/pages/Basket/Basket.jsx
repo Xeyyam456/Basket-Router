@@ -4,6 +4,7 @@ import useTitle from '@hooks/useTitle'
 import { useBasket } from '@store/BasketContext'
 import { useFavorites } from '@store/FavoritesContext'
 import useSearchFilter from '@hooks/useSearchFilter'
+import Button from '@shared/components/Button/Button'
 import ProductGrid from '../Products/ProductGrid'
 import ConfirmModal from '@shared/components/ConfirmModal/ConfirmModal'
 import './Basket.css'
@@ -39,7 +40,7 @@ function Basket() {
         <>
           <div className="basket-page__summary">
             <span className="basket-page__total">Total: <strong>$ {total.toFixed(2)}</strong></span>
-            <button className="basket-page__remove-all" onClick={() => setRemoveAllOpen(true)}>Remove All</button>
+            <Button variant="danger" className="basket-page__remove-all" onClick={() => setRemoveAllOpen(true)}>Remove All</Button>
           </div>
 
           <ProductGrid

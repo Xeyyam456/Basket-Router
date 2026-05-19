@@ -74,25 +74,28 @@ function ProductCard({ product, onAddToCart, onToggleFavorite, onRemove, onIncre
 
           {quantity !== undefined && (
             <div className="product-card__qty-row">
-              <button
+              <Button
+                variant="ghost"
                 className="product-card__qty-btn"
                 onClick={() => onDecrement?.()}
                 aria-label="Decrease"
-              >−</button>
+              >−</Button>
               <span className="product-card__qty-count">{quantity}</span>
-              <button
+              <Button
+                variant="ghost"
                 className="product-card__qty-btn"
                 onClick={() => onIncrement?.()}
                 aria-label="Increase"
-              >+</button>
+              >+</Button>
               {onRemove && (
-                <button
+                <Button
+                  variant="ghost"
                   className="product-card__qty-remove"
                   onClick={() => onRemove?.(product)}
                   aria-label="Remove"
                 >
                   <FiTrash2 size={16} />
-                </button>
+                </Button>
               )}
             </div>
           )}

@@ -28,6 +28,26 @@
   opacity: 0.3;
 }
 
+.favorites-page__summary {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.favorites-page__remove-all.btn {
+  background: #b91c1c !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.favorites-page__remove-all.btn:hover {
+  background: #991b1b !important;
+}
+
 .favorites-page__empty-text {
   font-size: 1.1rem;
   color: #475569;

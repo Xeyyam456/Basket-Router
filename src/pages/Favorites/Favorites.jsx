@@ -4,17 +4,19 @@ import useTitle from '@hooks/useTitle'
 import useFavorites from '@hooks/useFavorites'
 import { useBasket } from '@store/BasketContext'
 import useSearchFilter from '@hooks/useSearchFilter'
+import Button from '@shared/components/Button/Button'
 import ProductGrid from '../Products/ProductGrid'
 import ConfirmModal from '@shared/components/ConfirmModal/ConfirmModal'
 import './Favorites.css'
 
 function Favorites() {
   useTitle('Favorites')
-  const { favorites, toggle: toggleFavorite } = useFavorites()
+  const { favorites, toggle: toggleFavorite, clearFavorites } = useFavorites()
   const { basket, toggle: toggleBasket } = useBasket()
   const displayed = useSearchFilter(favorites)
 
   const [removeTarget, setRemoveTarget] = useState(null)
+  const [removeAllOpen, setRemoveAllOpen] = useState(false)
 
   function handleRemove(product) {
     setRemoveTarget(product)
@@ -27,22 +29,26 @@ function Favorites() {
 
   return (
     <div className="favorites-page">
-      {/* <h1 className="favorites-page__heading">Favorites ({favorites.length})</h1> */}
-
       {favorites.length === 0 ? (
         <div className="favorites-page__empty">
           <FiHeart className="favorites-page__empty-icon" />
           <p className="favorites-page__empty-text">No favorites yet</p>
         </div>
       ) : (
-        <ProductGrid
-          products={displayed}
-          favorites={favorites}
-          basket={basket}
-          onToggleFavorite={toggleFavorite}
-          onAddToCart={toggleBasket}
-          onRemove={handleRemove}
-        />
+        <>
+          <div className="favorites-page__summary">
+            <Button variant="danger" className="favorites-page__remove-all" onClick={() => setRemoveAllOpen(true)}>Remove All</Button>
+          </div>
+
+          <ProductGrid
+            products={displayed}
+            favorites={favorites}
+            basket={basket}
+            onToggleFavorite={toggleFavorite}
+            onAddToCart={toggleBasket}
+            onRemove={handleRemove}
+          />
+        </>
       )}
 
       <ConfirmModal
@@ -52,6 +58,15 @@ function Favorites() {
         cancelText="Ləğv et"
         onConfirm={confirmRemove}
         onCancel={() => setRemoveTarget(null)}
+      />
+
+      <ConfirmModal
+        isOpen={removeAllOpen}
+        message="Bütün məhsullar favoritesdən silinsin?"
+        confirmText="Hamısını sil"
+        cancelText="Ləğv et"
+        onConfirm={() => { clearFavorites(); setRemoveAllOpen(false) }}
+        onCancel={() => setRemoveAllOpen(false)}
       />
     </div>
   )
