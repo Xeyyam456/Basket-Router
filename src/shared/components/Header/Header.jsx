@@ -1,17 +1,99 @@
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { FiShoppingCart, FiHeart, FiSearch } from 'react-icons/fi'
 import './Header.css'
 
-function Header() {
+function Header({ cartCount = 0, wishCount = 0, onSearch, onSort, onReset }) {
+  const navigate = useNavigate()
+  const [searchVal, setSearchVal] = useState('')
+  const [sortVal, setSortVal] = useState('')
+
+  function handleSearch(e) {
+    setSearchVal(e.target.value)
+    onSearch?.(e.target.value)
+  }
+
+  function handleSort(e) {
+    setSortVal(e.target.value)
+    onSort?.(e.target.value)
+  }
+
+  function handleReset() {
+    setSearchVal('')
+    setSortVal('')
+    onReset?.()
+  }
+
   return (
     <header className="header">
-      <div className="header__logo">Basket</div>
-      <nav className="header__nav">
-        <NavLink to="/" className={({ isActive }) => isActive ? 'header__link header__link--active' : 'header__link'}>
-          Ana Səhifə
-        </NavLink>
-      </nav>
+      {/* Sol — Sort + Reset */}
+      <div className="header__left">
+        <select
+          className="header__select"
+          value={sortVal}
+          onChange={handleSort}
+        >
+          <option value="">Sort by</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="name">Name</option>
+        </select>
+        <button className="header__reset" onClick={handleReset}>
+          Reset
+        </button>
+      </div>
+
+      {/* Mərkəz — Axtarış */}
+      <div className="header__search-wrap">
+        <FiSearch className="header__search-icon" />
+        <input
+          className="header__search"
+          type="text"
+          placeholder="Search products..."
+          value={searchVal}
+          onChange={handleSearch}
+        />
+      </div>
+
+      {/* Sağ — Nav + İkonlar */}
+      <div className="header__right">
+        <nav className="header__nav">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? 'header__link header__link--active' : 'header__link'
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              isActive ? 'header__link header__link--active' : 'header__link'
+            }
+          >
+            Products
+          </NavLink>
+        </nav>
+
+        <div className="header__actions">
+          <button className="header__icon-btn" aria-label="Cart" onClick={() => navigate('/basket')}>
+            <FiShoppingCart size={22} />
+            {cartCount > 0 && (
+              <span className="header__badge">{cartCount}</span>
+            )}
+          </button>
+          <button className="header__icon-btn" aria-label="Wishlist" onClick={() => navigate('/favorites')}>
+            <FiHeart size={22} />
+            {wishCount > 0 && (
+              <span className="header__badge">{wishCount}</span>
+            )}
+          </button>
+        </div>
+      </div>
     </header>
   )
 }
 
 export default Header
+
