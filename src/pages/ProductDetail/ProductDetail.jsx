@@ -24,7 +24,7 @@ function ProductDetail() {
     onSuccess: () => setActiveImg(0),
   })
 
-  useTitle(product ? product.title : `Product ${id}`)
+  useTitle(product?.title)
 
   if (isLoading) return <LoadingBar />
 
@@ -43,7 +43,7 @@ function ProductDetail() {
 
   return (
     <div className="product-detail-page">
-      <button className="product-detail__back" onClick={() => navigate(-1)}>
+      <button className="product-detail__back" onClick={() => navigate('/products')}>
         <FiArrowLeft size={16} /> Back
       </button>
 
