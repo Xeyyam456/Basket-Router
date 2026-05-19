@@ -1,6 +1,6 @@
 import ApiService from '@utils/api'
 
-const BASE_URL = 'https://dummyjson.com'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 class ProductService extends ApiService {
   constructor() {

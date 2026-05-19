@@ -14,7 +14,7 @@ function useHeaderSearch() {
       if (debouncedSearch) prev.set('q', debouncedSearch)
       else prev.delete('q')
       return new URLSearchParams(prev)
-    })
+    }, { replace: true })
   }, [debouncedSearch])
 
   function handleSearch(e) {
@@ -28,7 +28,7 @@ function useHeaderSearch() {
       if (val) prev.set('sort', val)
       else prev.delete('sort')
       return new URLSearchParams(prev)
-    })
+    }, { replace: true })
   }
 
   function handleReset() {
